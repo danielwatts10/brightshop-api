@@ -2,12 +2,20 @@
 
 const express = require('express');
 const { products, findBySku } = require('../data/products');
+const { filterProducts, ValidationError } = require('../services/catalogue');
 
 const router = express.Router();
 
 // TODO: add pagination to the product listing (page and pageSize query parameters)
 router.get('/', (req, res) => {
-  res.json({ products });
+  try {
+    res.json({ products: filterProducts(products, req.query) });
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      return res.status(400).json({ error: err.message });
+    }
+    throw err;
+  }
 });
 
 router.get('/:sku', (req, res) => {
