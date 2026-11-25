@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(npm test:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh issue list:*)"
+    ],
+    "deny": [
+      "Bash(git push origin main:*)",
+      "Bash(git push --force:*)",
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  }
+}

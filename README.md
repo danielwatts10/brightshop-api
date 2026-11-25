@@ -24,10 +24,9 @@ npm start   # http://localhost:3000
 
 All amounts are in euro cents. Catalogue prices are net; VAT is added for the cart's country.
 
-## Working with Copilot
+## Working with Claude Code
 
-- `.github/copilot-instructions.md`: repository-wide conventions Copilot follows.
-- `.github/instructions/`: path-specific instructions (tests).
-- `.github/agents/`: custom agents, such as `test-specialist`.
-- `.github/workflows/copilot-setup-steps.yml`: prepares the coding agent's environment.
-- `.vscode/mcp.json`: GitHub MCP server for agent mode in VS Code.
+- `CLAUDE.md`: project conventions and commands Claude Code follows.
+- `test/CLAUDE.md`: extra conventions that apply when working on tests.
+- `.claude/agents/`: subagents, such as `test-specialist`.
+- `.claude/settings.json`: shared permissions (commands allowed without asking, and ones that are always blocked).
