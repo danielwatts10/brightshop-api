@@ -1,7 +1,3 @@
----
-applyTo: "test/**/*.js"
----
-
 # Test conventions
 
 - Use `const { test } = require('node:test')` and `const assert = require('node:assert/strict')`.
