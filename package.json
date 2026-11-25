@@ -1,0 +1,17 @@
+{
+  "name": "brightshop-api",
+  "version": "1.0.0",
+  "description": "BrightShop storefront API: product catalogue, carts and pricing (demo project).",
+  "main": "src/server.js",
+  "private": true,
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
