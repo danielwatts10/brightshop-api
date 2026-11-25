@@ -15,7 +15,7 @@ npm start   # http://localhost:3000
 | Method | Path | What it does |
 | --- | --- | --- |
 | GET | `/health` | Liveness check |
-| GET | `/api/products` | List the catalogue |
+| GET | `/api/products?page=1&pageSize=20` | List the catalogue, paginated (`pageSize` max 100). Returns `{ products, page, pageSize, total, totalPages }` |
 | GET | `/api/products/:sku` | One product |
 | POST | `/api/carts` | Create a cart, body `{ "country": "DE" }` |
 | GET | `/api/carts/:id` | Cart with totals |

@@ -30,10 +30,38 @@ test('GET /health reports ok', async () => {
   assert.equal(res.body.status, 'ok');
 });
 
-test('GET /api/products lists the catalogue', async () => {
+test('GET /api/products lists the first page of the catalogue', async () => {
   const res = await request('GET', '/api/products');
   assert.equal(res.status, 200);
-  assert.ok(res.body.products.length > 0);
+  assert.equal(res.body.products.length, 10);
+  assert.equal(res.body.page, 1);
+  assert.equal(res.body.pageSize, 20);
+  assert.equal(res.body.total, 10);
+  assert.equal(res.body.totalPages, 1);
+});
+
+test('GET /api/products returns the requested page', async () => {
+  const res = await request('GET', '/api/products?page=2&pageSize=4');
+  assert.equal(res.status, 200);
+  assert.deepEqual(res.body.products.map((p) => p.sku), ['HG-2001', 'HG-2002', 'HG-2003', 'HG-2004']);
+  assert.equal(res.body.totalPages, 3);
+});
+
+test('GET /api/products rejects a pageSize above 100', async () => {
+  const res = await request('GET', '/api/products?pageSize=101');
+  assert.equal(res.status, 400);
+  assert.equal(typeof res.body.error, 'string');
+});
+
+test('GET /api/products rejects page 0', async () => {
+  const res = await request('GET', '/api/products?page=0');
+  assert.equal(res.status, 400);
+  assert.equal(typeof res.body.error, 'string');
+});
+
+test('GET /api/products rejects a repeated page parameter', async () => {
+  const res = await request('GET', '/api/products?page=1&page=2');
+  assert.equal(res.status, 400);
 });
 
 test('GET /api/products/:sku returns 404 for an unknown SKU', async () => {

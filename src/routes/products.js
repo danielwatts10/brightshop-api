@@ -1,13 +1,20 @@
 'use strict';
 
 const express = require('express');
-const { products, findBySku } = require('../data/products');
+const { findBySku } = require('../data/products');
+const { listProducts, PaginationError } = require('../services/catalogue');
 
 const router = express.Router();
 
-// TODO: add pagination to the product listing (page and pageSize query parameters)
 router.get('/', (req, res) => {
-  res.json({ products });
+  try {
+    res.json(listProducts(req.query));
+  } catch (err) {
+    if (err instanceof PaginationError) {
+      return res.status(400).json({ error: err.message });
+    }
+    throw err;
+  }
 });
 
 router.get('/:sku', (req, res) => {
